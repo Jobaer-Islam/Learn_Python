@@ -777,7 +777,7 @@ But we wanted:
 Everything can be expressed as a string.
 But the reverse isn’t always possible — not every text can be converted to a number.
 
-> “You can store `Kolkata` in a string, but you can’t store `Kolkata` in an integer.”
+> “You can store `Dhaka` in a string, but you can’t store `Dhaka` in an integer.”
 
 That’s why `input()` always gives you a **string**.
 
@@ -881,7 +881,7 @@ Meaning — conversion will only work when it makes sense.
 * `"Dhaka"` → `int("Dhaka")` → ❌ **Error**
 * `"ringtone"` → `int("ringtone")` → ❌ **Error**
 
-> “You cannot convert text like ‘Kolkata’ into numbers because they are not numerically compatible.”
+> “You cannot convert text like ‘Dhaka’ into numbers because they are not numerically compatible.”
 
 ---
 
@@ -1196,7 +1196,7 @@ print(dict(x))
 Examples:
 
 ```python
-int("Kolkata")   #  Error
+int("Dhaka")   #  Error
 float("abcd")    #  Error
 list(45)         #  Error (integers are not iterable)
 ```
@@ -1332,7 +1332,7 @@ For example:
 | **Implicit Conversion** | Performed automatically by Python.                                               | `4 + 5.5 → 9.5`                      |
 | **Explicit Conversion** | Done manually using functions.                                                   | `int("56") → 56`                     |
 | **Common Functions**    | `int()`, `float()`, `complex()`, `str()`, `list()`, `set()`, `dict()`, `tuple()` |                                      |
-| **Compatibility Rule**  | Only possible for compatible data.                                               | `"123"` → int ✅; `"Kolkata"` → int ❌ |
+| **Compatibility Rule**  | Only possible for compatible data.                                               | `"123"` → int ✅; `"Dhaka"` → int ❌ |
 | **Temporary Nature**    | Original value remains unchanged.                                                | `a=4.5; int(a)` → `a` still 4.5      |
 | **Best Practice**       | Convert at the input stage.                                                      | `a = int(input("Enter number: "))`   |
 
@@ -2036,4 +2036,344 @@ print(emails)
 (Answers: 1-Value given to a variable; 2-Numeric, String, Boolean, Special; 3-10; 4-Hello\nWorld; 5-1; 6-`**`; 7-Object identity; 8-`None` = no value, `False` = boolean zero.)
 
 ---
+
+# **Decision Control Statements (IF / ELIF / ELSE)**
+
+##  **1. Why Do We Need Decision Making in Programming?**
+
+Your program **usually runs top to bottom**, line by line.
+But real-world logic is not always linear — sometimes your program needs to choose **between multiple possible paths**.
+
+This situation is called **branching**.
+
+###   Why branching is needed?
+
+Because sometimes:
+
+* A user may give the correct credentials
+* Or the user may give incorrect details
+* And in some cases, the user may give **partially correct** details (correct email but wrong password)
+
+Each outcome requires a different response.
+
+So Python needs a mechanism to make decisions.
+This mechanism is the **if / elif / else** structure.
+
+---
+
+#  **2. What is an IF Statement?**
+
+###   Definition (Clean English)
+
+> An **if statement** is used when the program needs to check a condition and execute a block of code only if that condition is true.
+
+###   Real example from transcript
+
+Login system:
+
+* If the user enters correct email and password → show **Welcome**
+* Else → show **Incorrect credentials**
+
+This is the simplest use-case of decision-making.
+
+---
+
+#  **3. Building a Simple Login System (Base Version)**
+
+*(Based directly on the transcript example)*
+
+We first ask the user for:
+
+* Email
+* Password
+
+Then compare them with **predefined correct credentials**.
+
+###   Step 1 — Get Input from User
+
+```python
+email = input("Enter your email: ")
+password = input("Enter your password: ")
+```
+
+###   Step 2 — Store Correct Credentials
+
+```python
+correct_email = "example@gmail.com"
+correct_password = "1234"
+```
+
+###   Step 3 — Apply IF + AND Operator
+
+```python
+if email == correct_email and password == correct_password:
+    print("Welcome!")
+else:
+    print("Incorrect credentials")
+```
+
+###  Explanation
+
+* `email == correct_email` → checks whether the user entered the correct email
+* `password == correct_password` → checks password
+* `and` ensures **both must be true**
+* If either is wrong → else block executes
+
+---
+
+#  **4. Understanding INDENTATION (VERY IMPORTANT in Python)**
+
+Transcript explanation:
+
+> In Python, you do not use braces `{}` like other languages.
+> Instead, indentation decides which lines belong to which block.
+
+###   Example of correct indentation:
+
+```python
+if email == correct_email:
+    print("Email match")  # inside IF block
+print("Done")             # outside IF block
+```
+
+Python will throw errors or behave incorrectly if indentation is wrong.
+
+---
+
+#  **5. Adding Complexity — ELIF (Else If)**
+
+Your manager now wants:
+
+* If email is correct but password is wrong → give user **one more chance**
+* If user fails again → show error
+* If email and password both correct → welcome
+* If email itself is wrong → directly reject
+
+Now we have **three cases**:
+
+1. Fully correct
+2. Fully wrong
+3. Partially correct (correct email but wrong password)
+
+###   Structure:
+
+```
+if condition1:
+    ...
+elif condition2:
+    ...
+else:
+    ...
+```
+
+---
+
+#  **6. Implementing ELIF Logic **
+
+###   Step 1 — Basic IF block
+
+```python
+if email == correct_email and password == correct_password:
+    print("Welcome!")
+```
+
+###   Step 2 — ELIF for partial correctness
+
+We check:
+
+* Email is correct
+* Password is wrong
+
+To check wrong password, we use `not`.
+
+```python
+elif email == correct_email and password != correct_password:
+    print("Password incorrect")
+    password = input("Enter password again: ")
+
+    # now check again
+    if password == correct_password:
+        print("Welcome!")
+    else:
+        print("Incorrect again")
+```
+
+###   Step 3 — Final ELSE block
+
+```python
+else:
+    print("Incorrect credentials")
+```
+
+###   Full Code (Updated Login System)
+
+```python
+email = input("Enter your email: ")
+password = input("Enter your password: ")
+
+correct_email = "example@gmail.com"
+correct_password = "1234"
+
+if email == correct_email and password == correct_password:
+    print("Welcome!")
+
+elif email == correct_email and password != correct_password:
+    print("Password incorrect")
+    password = input("Enter password again: ")
+
+    if password == correct_password:
+        print("Welcome!")
+    else:
+        print("Incorrect again")
+
+else:
+    print("Incorrect credentials")
+```
+
+---
+
+#  **7. Nested IF (IF inside IF)**
+
+Transcript says:
+
+> “When you are already inside an elif block, and again need branching, you can add an IF statement inside. This is called nested IF.”
+
+###   Why use nested IF?
+
+Because after the second chance, we again have two possibilities:
+
+* Password correct
+* Password still wrong
+
+###   Example (already shown above)
+
+```python
+elif email == correct_email and password != correct_password:
+    print("Password incorrect")
+
+    password = input("Enter again: ")
+
+    if password == correct_password:
+        print("Welcome!")
+    else:
+        print("Incorrect again")
+```
+
+---
+
+#  **8. Adding Error Checking: Valid Email Format**
+
+Manager now wants additional validation:
+
+> “If the user does not include `@` in the email, then immediately show 'Invalid Email', without asking for password.”
+
+We check:
+
+```python
+if '@' not in email:
+    print("Invalid email format")
+```
+
+###   Then we put remaining logic under ELSE:
+
+```python
+if '@' not in email:
+    print("Invalid email format")
+
+else:
+    # rest of login code goes here
+    if email == correct_email and password == correct_password:
+        ...
+```
+
+###   Full Enhanced Code
+
+*(Final version as described in transcript)*
+
+```python
+email = input("Enter your email: ")
+
+if '@' not in email:
+    print("Invalid email format")
+
+else:
+    password = input("Enter your password: ")
+
+    correct_email = "example@gmail.com"
+    correct_password = "1234"
+
+    if email == correct_email and password == correct_password:
+        print("Welcome!")
+
+    elif email == correct_email and password != correct_password:
+        print("Password incorrect")
+        password = input("Enter password again: ")
+
+        if password == correct_password:
+            print("Welcome!")
+        else:
+            print("Incorrect again")
+
+    else:
+        print("Incorrect credentials")
+```
+
+---
+
+#  **9. Summary of Concepts Learned**
+
+###   IF Statement
+
+Used to check a condition and run code only if condition is true.
+
+###   ELSE
+
+Runs when IF condition fails.
+
+###   ELIF
+
+Used to introduce additional conditions **between** IF and ELSE.
+
+###   NESTED IF
+
+IF inside another IF/ELIF block.
+
+###   LOGICAL OPERATORS
+
+Used heavily in decision-making:
+
+* `and`
+* `or`
+* `not`
+
+###   MEMBERSHIP TEST
+
+Used to check for characters inside strings:
+
+```python
+"@" in email
+```
+
+###   Indentation
+
+Defines code blocks in Python.
+
+---
+
+#  **10. Real-Life Understanding **
+
+* Login systems
+* Permission checks
+* Banking OTP validation
+* Form validation
+* Payment gateways
+* Game logic (e.g., health > 0 → continue playing)
+
+Every modern app depends heavily on **if-elif-else**.
+
+---
+
+
+
+
 
