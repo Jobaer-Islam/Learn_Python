@@ -245,3 +245,94 @@
 
 ---
 
+# Python Comments
+
+## What are Comments?
+
+* **Definition**: Comments are parts of code that are **not executable** by the compiler or interpreter.
+* They are ignored completely during execution.
+* Example:
+
+  ```python
+  # This is a comment
+  print("Hello")
+  ```
+
+  Output → `Hello` (comment ignored)
+
+---
+
+## Why Use Comments?
+
+1. **Teamwork**
+
+   * In companies, code is written in teams.
+   * If you leave, take leave, or someone else takes over your code, comments help them understand the logic.
+   * Without comments, the company may face problems if the code is unclear.
+
+2. **For Yourself**
+
+   * After months, even you may forget what logic you used.
+   * Comments act as **documentation** for your own reference.
+
+3. **Overall Benefit**
+
+   * Comments **improve code readability**.
+   * They benefit your teammates immediately and benefit you in the long run.
+
+---
+
+## Writing Comments in Python
+
+* Python supports comments using the **hash `#` symbol**.
+* Anything after `#` on the same line is ignored.
+
+**Examples**
+
+```python
+# This prints Hello World
+print("Hello World")
+
+# This is another comment
+print(42)
+```
+
+---
+
+## Multi-line Comments
+
+* Python does **not** have a true multi-line comment feature.
+* To write multiple lines, you must start each line with `#`.
+
+**Example**
+
+```python
+# Line 1
+# Line 2
+# Line 3
+```
+
+* Some IDEs provide a shortcut to toggle multiple lines as comments, but at the language level, Python only has single-line `#` comments.
+
+**Note:** This is not a big limitation. Usually, comments are 1–3 lines, not long paragraphs.
+
+---
+
+## Practical Advice
+
+* Comments are not about writing essays. Keep them **short, clear, and helpful**.
+* Six years of coding experience (as per transcript) → never found lack of multi-line comments a real problem.
+* Focus on making your **logic understandable quickly**.
+
+---
+
+## Summary
+
+* **Definition**: Non-executable text in code.
+* **Symbol**: `#`
+* **Purpose**: Improve readability, help teams, and help your future self.
+* **Multi-line**: Write `#` at the start of each line (no special block syntax).
+* **Best Practice**: Keep comments short and to the point.
+
+---
+
