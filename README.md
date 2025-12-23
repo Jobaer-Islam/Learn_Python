@@ -828,7 +828,7 @@ This process is called **Type Conversion** or **Type Casting**.
 
 ---
 
-# Summary
+## Summary
 
 | Concept                  | Description                                                       | Example                             |
 | ------------------------ | ----------------------------------------------------------------- | ----------------------------------- |
@@ -3353,6 +3353,482 @@ while i < 11:
 ---
 
 
+# Number Guessing Game in Python
+
+*Using `random`, `while` loop, and `if–elif–else`*
+
+---
+
+## 1. What Are We Building?
+
+We’re going to build a **number guessing game** in Python.
+
+Here’s how the game will behave:
+
+* The computer secretly picks a **random number between 1 and 100**
+* You (the user) must **guess** that number
+* After each guess, the program will say:
+
+  * `"Guess higher"` if your guess is too low
+  * `"Guess lower"` if your guess is too high
+* When you finally guess correctly:
+
+  * The program prints:
+     `"Correct! You took X attempts."`
+
+So we’ll learn how to:
+
+* Generate random numbers
+* Take user input
+* Use `if / elif / else` decisions
+* Use a `while` loop to keep repeating
+* Keep a **counter** of attempts
+
+---
+
+## 2. Step 0 — Understanding the Game Logic
+
+Before writing any code, let’s describe the logic in normal language.
+
+1. Computer chooses a secret number between 1 and 100
+2. Ask the user: “Guess a number”
+3. Compare the guess with the secret number:
+
+   * If equal → user wins → show attempts → stop
+   * If guess < secret → print “Guess higher” → ask again
+   * If guess > secret → print “Guess lower” → ask again
+4. Repeat step 2–3 until the user guesses correctly
+
+We don’t know in advance how many guesses the user will need.
+So we need a loop that continues **until** the correct guess — that’s exactly why we use a **`while` loop**.
+
+---
+
+## 3. Generating Random Numbers with `random.randint`
+
+Python gives you a built-in module called `random` for random numbers.
+
+### 3.1 Importing the module
+
+```python
+import random
+```
+
+This is similar to including libraries in C/C++ (`#include <...>`).
+Without this, we cannot use random-related functions.
+
+---
+
+### 3.2 Using `random.randint(a, b)`
+
+```python
+secret_number = random.randint(1, 100)
+```
+
+* `1` = lower bound (inclusive)
+* `100` = upper bound (inclusive)
+
+So the secret number can be **any integer from 1 to 100**, including 1 and 100.
+
+Every time you run the program, the secret will be different.
+
+---
+
+## 4. Step 1 — Ask the User for Their First Guess
+
+We want to ask the user:
+
+> “Guess the number: ”
+
+In Python:
+
+```python
+guess = int(input("Guess the number: "))
+```
+
+Why `int()`?
+
+* `input()` always returns a **string**
+* We want to **compare** numbers and check `guess < secret_number`, etc.
+* So we convert the input to an integer using `int()`
+
+If we forget `int()`, comparison like `guess < secret_number` will not work correctly.
+
+---
+
+## 5. Step 2 — Basic Comparison Without Loop
+
+Let’s first write a **single-guess** version just to understand the comparison part.
+
+```python
+import random
+
+secret_number = random.randint(1, 100)
+
+guess = int(input("Guess the number: "))
+
+if guess == secret_number:
+    print("Correct!")
+elif guess < secret_number:
+    print("Wrong! Guess higher.")
+else:  # guess > secret_number
+    print("Wrong! Guess lower.")
+```
+
+This works for **one** guess only.
+But our game should keep asking until the user gets it right — that’s where the loop comes in.
+
+---
+
+## 6. Step 3 — Adding a While Loop (Repeat Until Correct)
+
+We want to repeat the guessing steps **until** `guess == secret_number`.
+
+In words:
+
+> “Keep looping while the guess is NOT equal to the secret number.”
+
+That’s exactly:
+
+```python
+while guess != secret_number:
+    # give hints, ask again
+```
+
+Full structure:
+
+```python
+import random
+
+secret_number = random.randint(1, 100)
+
+guess = int(input("Guess the number: "))
+
+while guess != secret_number:
+    if guess < secret_number:
+        print("Wrong! Guess higher.")
+    elif guess > secret_number:
+        print("Wrong! Guess lower.")
+    
+    # ask again inside the loop
+    guess = int(input("Guess again: "))
+
+print("Correct! You guessed the number!")
+```
+
+### How this works:
+
+* We take one guess **before** the loop
+* While the guess is wrong, we:
+
+  * Tell the user whether to guess higher or lower
+  * Ask for a new guess
+* As soon as `guess == secret_number`, the loop stops
+* Then we print the final success message
+
+---
+
+## 7. Step 4 — Counting the Number of Attempts
+
+The transcript also tracks how many times the user tried.
+
+We do this with a **counter variable**.
+
+### 7.1 Initialize the counter
+
+Before the first guess:
+
+```python
+attempts = 1  # First guess counts as attempt 1
+guess = int(input("Guess the number: "))
+```
+
+We set `attempts = 1` because the moment the user enters their first guess, that is already **one attempt**.
+
+---
+
+### 7.2 Increment the counter in the loop
+
+Every time we ask for a new guess, we increase the counter:
+
+```python
+while guess != secret_number:
+    if guess < secret_number:
+        print("Wrong! Guess higher.")
+    else:  # guess > secret_number
+        print("Wrong! Guess lower.")
+
+    guess = int(input("Guess again: "))
+    attempts += 1  # user has tried one more time
+```
+
+When the loop ends, `attempts` will contain the exact number of guesses used.
+
+---
+
+### 7.3 Final success message with attempts
+
+After the loop:
+
+```python
+print("Correct! You took", attempts, "attempts.")
+```
+
+Example output:
+
+```text
+Guess the number: 30
+Wrong! Guess higher.
+Guess again: 60
+Wrong! Guess lower.
+Guess again: 45
+Wrong! Guess higher.
+Guess again: 50
+Correct! You took 4 attempts.
+```
+
+---
+
+## 8. Full Final Code — Clean Version
+
+Here is the complete, polished version of the game:
+
+```python
+import random
+
+print(" Welcome to the Number Guessing Game!")
+print("I'm thinking of a number between 1 and 100.")
+
+# Step 1: Generate a random secret number
+secret_number = random.randint(1, 100)
+
+# Step 2: Ask the user for their first guess
+guess = int(input("Guess the number: "))
+attempts = 1  # first guess = 1 attempt
+
+# Step 3: Repeat while the guess is incorrect
+while guess != secret_number:
+    if guess < secret_number:
+        print("Wrong! Guess HIGHER.")
+    else:  # guess > secret_number
+        print("Wrong! Guess LOWER.")
+
+    # ask for another guess
+    guess = int(input("Guess again: "))
+    attempts += 1
+
+# Step 4: When loop ends, the guess is correct
+print(" Correct! The number was", secret_number)
+print(" You took", attempts, "attempts.")
+```
+
+This matches the behavior described in your transcript:
+
+* Random number between 1–100
+* “Guess higher” / “Guess lower” hints
+* Keeps looping until correct
+* Shows number of attempts
+
+---
+
+## 9. Dry Run Example (Step-by-Step Execution)
+
+Let’s simulate a game mentally to fully understand.
+
+Assume `secret_number = 42` (randomly chosen).
+
+### Initial:
+
+```text
+secret_number = 42
+attempts = ?
+```
+
+User starts the game:
+
+```text
+Guess the number: 70
+```
+
+Code:
+
+```python
+guess = 70
+attempts = 1
+```
+
+---
+
+### First check:
+
+`while guess != secret_number` → `70 != 42` → True → enter loop
+
+* `guess > secret_number` → `70 > 42` → True
+  → Print `"Wrong! Guess LOWER."`
+* Ask again:
+
+  * `guess = int(input("Guess again: "))`
+    Suppose user enters `30`
+* `attempts += 1` → attempts = 2
+
+---
+
+### Second check:
+
+Now:
+
+```text
+guess = 30
+attempts = 2
+```
+
+Condition:
+
+`30 != 42` → True → enter loop
+
+* `guess < secret_number` → `30 < 42` → True
+  → Print `"Wrong! Guess HIGHER."`
+* Ask again:
+
+  * user enters `40`
+* `attempts = 3`
+
+---
+
+### Third check:
+
+```text
+guess = 40
+attempts = 3
+```
+
+Condition:
+
+`40 != 42` → True
+
+* `40 < 42` → True
+  → `"Wrong! Guess HIGHER."`
+* New guess: `42`
+* `attempts = 4`
+
+---
+
+### Fourth check:
+
+```text
+guess = 42
+attempts = 4
+secret_number = 42
+```
+
+Condition:
+
+`42 != 42` → False → loop stops
+
+Now final print:
+
+```text
+ Correct! The number was 42
+ You took 4 attempts.
+```
+
+---
+
+## 10. Logical Structure of the Program
+
+You can think of the whole program as three stages:
+
+### 1️ Setup Stage
+
+* Import modules
+* Generate secret number
+* Initialize attempts
+
+```python
+import random
+secret_number = random.randint(1, 100)
+guess = int(input("Guess the number: "))
+attempts = 1
+```
+
+---
+
+### 2️ Game Loop Stage
+
+* Runs until guess is correct
+* Gives hints (higher/lower)
+* Requests new guesses
+* Increments attempts
+
+```python
+while guess != secret_number:
+    if guess < secret_number:
+        print("Wrong! Guess HIGHER.")
+    else:
+        print("Wrong! Guess LOWER.")
+
+    guess = int(input("Guess again: "))
+    attempts += 1
+```
+
+---
+
+### 3️ Result Stage
+
+* Loop ended → guess is correct
+* Show success message and number of attempts
+
+```python
+print(" Correct! The number was", secret_number)
+print(" You took", attempts, "attempts.")
+```
+
+---
+
+## 11. How to Think Like a Developer :
+
+An important **mindset tip**:
+
+> Don’t try to build everything at once.
+> Start small, then gradually add features.
+
+### Recommended step-by-step development:
+
+1. **Step 1:**
+   Just generate a random number and print it.
+   Make sure you understand `random.randint()`.
+
+2. **Step 2:**
+   Ask the user for **one guess** only.
+   Compare it and print:
+
+   * Correct / Wrong (Higher/Lower)
+
+3. **Step 3:**
+   Wrap the guess logic in a `while` loop to allow multiple guesses.
+
+4. **Step 4:**
+   Add an `attempts` counter and show how many attempts were taken.
+
+This modular thinking makes bigger problems **easier and less stressful**.
+
+---
+
+## 12. Practice Variations (Optional for You)
+
+Once you fully understand this version, you can try small extensions:
+
+* Limit the user to **maximum 7 attempts**
+* Change the range to 1–1000
+* Give extra hints like:
+
+  * “You’re very close!” if the difference is ≤ 5
+* Ask the user if they want to **play again** after finishing
+
+But all of these are *add-ons*.
+The core logic is exactly what we just built.
+
+---
 
 
 
