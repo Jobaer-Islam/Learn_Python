@@ -4257,5 +4257,271 @@ This approach avoids confusion and bugs.
 
 ---
 
+# Nested Loops in Python :
+
+## 1. What Are Nested Loops?
+
+### Definition
+
+A **nested loop** is a loop **inside another loop**.
+
+* One loop is called the **outer loop**
+* The loop inside it is called the **inner loop**
+* You can nest loops **once, twice, or many times**
+* Regardless of how many levels, it is still called a *nested loop*
+
+> If a loop runs inside another loop, it is a nested loop.
+
+---
+
+## 2. When Do We Need Nested Loops?
+
+### Key Idea
+
+You **do not decide nested loops by syntax** —
+you decide them by **logic and experience**.
+
+As you practice more:
+
+* You start recognizing problems where:
+
+  * One loop is **not enough**
+  * You must repeat a task **inside another repetition**
+
+---
+
+## 3. Time Complexity Warning (Very Important)
+
+Nested loops are **powerful but expensive**.
+
+### Time Complexity:
+
+* 2 nested loops → **O(n²)**
+* 3 nested loops → **O(n³)**
+
+This means:
+
+* As input size increases
+* Execution time increases **very fast**
+
+> Because of this, nested loops are **not preferred unless necessary**
+
+---
+
+## 4. Real-World Scenarios Where Nested Loops Are Required
+
+Even though nested loops are expensive, sometimes there is **no alternative**.
+
+### Example 1: Social Media Platform
+
+* One loop → iterate over all users
+* Inner loop → count friends of each user
+
+### Example 2: Banking System
+
+* One loop → iterate over users
+* Inner loop → iterate over transactions of each user
+
+These problems **cannot be solved using a single loop**.
+
+---
+
+## 5. Classic Example: Star Pattern (Asterisk Pattern)
+
+This is a **very famous problem** used to teach nested loops.
+
+### Problem Description
+
+Print the following pattern:
+
+```
+*
+* *
+* * *
+* * * *
+* * * * *
+```
+
+* Row 1 → 1 star
+* Row 2 → 2 stars
+* Row 3 → 3 stars
+* Row 4 → 4 stars
+* Row 5 → 5 stars
+
+The number of stars in each row equals the **row number**.
+
+---
+
+## 6. Why a Single Loop Is Not Enough
+
+If you think carefully:
+
+* One loop can control **rows**
+* Another loop is needed to control **columns (stars per row)**
+
+So:
+
+* Outer loop → rows
+* Inner loop → stars inside each row
+
+---
+
+## 7. Taking Input from User
+
+First, we ask the user how many rows they want:
+
+```python
+rows = int(input("Enter the number of rows: "))
+```
+
+* Input is converted to `int`
+* This value controls how many rows will be printed
+
+---
+
+## 8. Outer Loop (Row Control)
+
+```python
+for i in range(1, rows + 1):
+```
+
+### Explanation:
+
+* If user enters `5`
+* Loop runs from `1` to `5`
+* Each iteration represents **one row**
+
+---
+
+## 9. Inner Loop (Star Control)
+
+```python
+for j in range(0, i):
+```
+
+### Explanation:
+
+* The inner loop depends on `i`
+* If `i = 1` → runs once
+* If `i = 2` → runs twice
+* If `i = 5` → runs five times
+
+So:
+
+> Number of stars = current row number
+
+---
+
+## 10. Printing Stars Side by Side
+
+Normally, `print()` moves to the next line.
+
+To keep stars on the **same line**, we use:
+
+```python
+print("*", end=" ")
+```
+
+* `end=" "` prevents line break
+* Adds a space after each star
+
+---
+
+## 11. Completing the Row
+
+After the inner loop finishes, we move to the next line:
+
+```python
+print()
+```
+
+This is written **inside the outer loop**, after the inner loop.
+
+---
+
+## 12. Complete Program Code
+
+```python
+rows = int(input("Enter the number of rows: "))
+
+for i in range(1, rows + 1):
+    for j in range(0, i):
+        print("*", end=" ")
+    print()
+```
+
+---
+
+## 13. How the Program Executes (Dry Run)
+
+Let user input be `5`.
+
+### Iteration Breakdown:
+
+| Outer Loop (i) | Inner Loop Runs | Output      |
+| -------------- | --------------- | ----------- |
+| 1              | 1 time          | `*`         |
+| 2              | 2 times         | `* *`       |
+| 3              | 3 times         | `* * *`     |
+| 4              | 4 times         | `* * * *`   |
+| 5              | 5 times         | `* * * * *` |
+
+When the outer loop finishes, the program ends.
+
+---
+
+## 14. Visualizing Execution Using Python Tutor
+
+The instructor demonstrates execution using **Python Tutor**, which shows:
+
+* Which line executes next
+* Current values of variables (`i`, `j`)
+* How loops enter and exit
+* When lines are printed
+
+### Key Observations:
+
+* Outer loop increments `i`
+* Inner loop resets `j` every time
+* Inner loop fully completes before outer loop continues
+
+---
+
+## 15. Understanding Loop Flow (Mental Model)
+
+Think like this:
+
+> For each row
+> → print stars equal to row number
+> → then move to next line
+
+---
+
+## 16. Why Nested Loops Feel Confusing Initially
+
+Because:
+
+* One loop depends on another
+* Control jumps between loops
+* Beginners try to track everything at once
+
+### Solution:
+
+* Always track **outer loop first**
+* Then analyze inner loop behavior
+
+---
+
+## 17. Key Takeaways
+
+* Nested loops = loop inside another loop
+* Used when **repeated work happens inside repeated work**
+* Time complexity increases quickly
+* Must be used **only when required**
+* Pattern problems are best practice examples
+
+---
+
+
 
 
