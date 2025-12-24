@@ -7162,6 +7162,471 @@ Membership operators work **directly and efficiently** on strings.
 
 ---
 
+# String Functions in Python
+
+---
+
+## 1. Overview of String Functions
+
+After learning string operations, the **most important part** of strings is their **built-in functions**.
+
+String functions are used **very frequently** in real-world applications such as:
+
+* Web development
+* User input handling
+* Data validation
+* Text processing
+* Logging systems
+
+---
+
+## 2. Categories of String Functions
+
+String functions can be divided into **two major categories**:
+
+### Category 1: Common Functions
+
+These functions are available for **multiple data types**, not only strings:
+
+* Lists
+* Tuples
+* Sets
+* Dictionaries
+* Strings
+
+### Category 2: String-Specific Functions
+
+These functions work **only on strings** and **cannot** be applied to other data types.
+
+---
+
+## 3. Common Functions (Available for Multiple Data Types)
+
+---
+
+### 3.1 `len()` – Length Function
+
+Returns the number of characters in a string.
+
+```python
+s = "Kolkata"
+print(len(s))
+```
+
+**Output:**
+
+```
+7
+```
+
+---
+
+### 3.2 `max()` – Maximum Character
+
+Returns the character with the **highest ASCII / Unicode value**.
+
+```python
+print(max("abcXYZ"))
+```
+
+Output depends on ASCII values.
+
+---
+
+### 3.3 `min()` – Minimum Character
+
+Returns the character with the **lowest ASCII / Unicode value**.
+
+```python
+print(min("abcXYZ"))
+```
+
+---
+
+### 3.4 `sorted()` – Sorting Characters
+
+Sorts characters based on ASCII values and returns a **list**.
+
+```python
+print(sorted("kolkata"))
+```
+
+**Output:**
+
+```python
+['a', 'k', 'k', 'l', 'o', 't']
+```
+
+Descending order:
+
+```python
+print(sorted("kolkata", reverse=True))
+```
+
+---
+
+## 4. String-Specific Functions
+
+These functions are **exclusive to strings**.
+
+---
+
+## 5. Case Conversion Functions
+
+These functions modify the **letter case** of strings.
+
+---
+
+### 5.1 `capitalize()`
+
+Capitalizes **only the first character** of the string.
+
+```python
+s = "dhaka"
+print(s.capitalize())
+```
+
+Output:
+
+```
+dhaka
+```
+
+Original string remains unchanged.
+
+---
+
+### 5.2 `title()`
+
+Capitalizes the **first letter of every word**.
+
+```python
+s = "welcome to python programming"
+print(s.title())
+```
+
+Output:
+
+```
+Welcome To Python Programming
+```
+
+---
+
+### 5.3 `upper()`
+
+Converts all characters to uppercase.
+
+```python
+print("hello".upper())
+```
+
+Output:
+
+```
+HELLO
+```
+
+---
+
+### 5.4 `lower()`
+
+Converts all characters to lowercase.
+
+```python
+print("HELLO".lower())
+```
+
+Output:
+
+```
+hello
+```
+
+---
+
+### 5.5 `swapcase()`
+
+Swaps uppercase letters to lowercase and vice versa.
+
+```python
+print("PyThOn".swapcase())
+```
+
+Output:
+
+```
+pYtHoN
+```
+
+---
+
+## 6. Counting and Searching Functions
+
+---
+
+### 6.1 `count()`
+
+Counts occurrences of a **character or substring**.
+
+```python
+s = "programming"
+print(s.count("g"))
+```
+
+Output:
+
+```
+2
+```
+
+Works for substrings as well:
+
+```python
+print(s.count("pro"))
+```
+
+---
+
+### 6.2 `find()`
+
+Returns the **index of first occurrence** of a substring.
+Returns `-1` if not found.
+
+```python
+s = "python programming"
+print(s.find("prog"))
+```
+
+---
+
+### 6.3 `index()`
+
+Same as `find()`, but **raises an error** if not found.
+
+```python
+print(s.index("python"))
+```
+
+❗ Prefer `find()` when unsure if the substring exists.
+
+---
+
+## 7. Start and End Checking
+
+---
+
+### 7.1 `startswith()`
+
+Checks whether a string starts with a given substring.
+
+```python
+s = "image.jpg"
+print(s.startswith("image"))
+```
+
+Output:
+
+```
+True
+```
+
+---
+
+### 7.2 `endswith()`
+
+Checks whether a string ends with a given substring.
+
+```python
+print(s.endswith(".jpg"))
+```
+
+Output:
+
+```
+True
+```
+
+Useful in:
+
+* File validation
+* URL checking
+* Extension detection
+
+---
+
+## 8. `format()` – String Formatting
+
+Used to insert values into placeholders dynamically.
+
+---
+
+### Basic Example
+
+```python
+s = "Hello, my name is {} and I am {} years old"
+print(s.format("Alex", 25))
+```
+
+Output:
+
+```
+Hello, my name is Alex and I am 25 years old
+```
+
+---
+
+### Positional Formatting
+
+```python
+print("{1} is older than {0}".format("John", "Alex"))
+```
+
+---
+
+### Named Formatting
+
+```python
+print("Name: {name}, Age: {age}".format(name="Sam", age=30))
+```
+
+Used heavily in:
+
+* Login systems
+* User profiles
+* Logging
+* Dynamic messages
+
+---
+
+## 9. Validation Functions (`is*()`)
+
+Used to **validate user input**.
+
+---
+
+### Common Validation Functions
+
+| Function         | Purpose                 |
+| ---------------- | ----------------------- |
+| `isalnum()`      | Alphanumeric            |
+| `isalpha()`      | Alphabets only          |
+| `isdigit()`      | Digits only             |
+| `isdecimal()`    | Decimal numbers         |
+| `isidentifier()` | Valid Python identifier |
+| `islower()`      | All lowercase           |
+| `isupper()`      | All uppercase           |
+| `isspace()`      | Only spaces             |
+| `istitle()`      | Title case              |
+
+---
+
+### Example
+
+```python
+s = "Python3"
+print(s.isalnum())
+```
+
+```python
+s = "hello_world"
+print(s.isidentifier())
+```
+
+---
+
+## 10. `split()` – Splitting Strings
+
+Converts a string into a **list of words**.
+
+```python
+s = "Who is the Prime Minister of India"
+print(s.split())
+```
+
+Output:
+
+```python
+['Who', 'is', 'the', 'Prime', 'Minister', 'of', 'India']
+```
+
+You can split using any delimiter:
+
+```python
+print("PM-India".split("-"))
+```
+
+Used heavily in:
+
+* NLP
+* Search engines
+* Tag extraction
+* Text analytics
+
+---
+
+## 11. `join()` – Joining Strings
+
+Opposite of `split()`.
+
+```python
+words = ['Prime', 'Minister', 'India']
+print(" ".join(words))
+```
+
+Output:
+
+```
+Prime Minister India
+```
+
+Used in:
+
+* URL creation
+* Sentence reconstruction
+* Formatting output
+
+---
+
+## 12. `replace()`
+
+Replaces one substring with another.
+
+```python
+s = "Hello World"
+print(s.replace("World", "Python"))
+```
+
+---
+
+## 13. `strip()`, `lstrip()`, `rstrip()`
+
+Remove unwanted spaces.
+
+```python
+s = "   hello   "
+print(s.strip())
+```
+
+Removes both leading and trailing spaces.
+
+Very important in:
+
+* Web forms
+* User input cleanup
+* Database storage
+
+---
+
+## 14. Key Takeaways
+
+* Strings are **immutable**
+* Functions return **new strings**
+* Validation functions are critical for input handling
+* `split()` and `join()` are extremely powerful
+* `format()` is essential for dynamic applications
+
+---
 
 
 
