@@ -6505,6 +6505,663 @@ Within **10–15 minutes**, you will become comfortable.
 
 ---
 
+# Editing and Deleting Strings (Immutability)
+
+---
+
+## 1. Attempting to Edit a String
+
+Consider the following string:
+
+```python
+s = "hello"
+```
+
+Suppose we want to change the **first character** from `'h'` to `'x'`.
+
+A beginner may try:
+
+```python
+s[0] = 'x'
+```
+
+### Output:
+
+```
+TypeError: 'str' object does not support item assignment
+```
+
+---
+
+## 2. Why This Error Occurs
+
+Python is telling us something very important:
+
+> **Strings do not support item assignment**
+
+This means:
+
+* You **cannot modify** individual characters in a string
+* You **cannot replace**, **insert**, or **delete** characters inside a string
+
+---
+
+## 3. Strings Are Immutable
+
+In Python, strings are **immutable**.
+
+### Meaning of Immutable:
+
+* *Immutable* means **cannot be changed after creation**
+* Once a string is created, its contents **cannot be modified**
+
+This is a **core rule** of Python strings.
+
+---
+
+## 4. What You Can and Cannot Do with Strings
+
+### ❌ Not Allowed (Mutation)
+
+```python
+s[1] = 'a'      # Not allowed
+s[2] = 'z'      # Not allowed
+del s[0]        # Not allowed
+s.append('x')   # Not allowed
+```
+
+All of these cause errors because they attempt **mutation**.
+
+---
+
+## 5. What Mutation Means
+
+Mutation means **changing an object in place**.
+
+Examples of mutation:
+
+* Changing a character
+* Adding a new character
+* Removing part of a string
+
+Strings **do not allow mutation**.
+
+---
+
+## 6. Reassignment vs Editing (Important Difference)
+
+Although strings cannot be edited, they **can be reassigned**.
+
+### Example:
+
+```python
+s = "hello"
+s = "world"
+print(s)
+```
+
+### Output:
+
+```
+world
+```
+
+This works because:
+
+* The original string `"hello"` is not changed
+* A **new string** `"world"` is created
+* The variable `s` now points to the new string
+
+---
+
+## 7. Editing vs Reassigning
+
+| Action                | Allowed? | Reason            |
+| --------------------- | -------- | ----------------- |
+| Edit a character      | ❌        | Mutation          |
+| Add a character       | ❌        | Mutation          |
+| Delete a character    | ❌        | Mutation          |
+| Replace entire string | ✅        | Reassignment      |
+| Delete entire string  | ✅        | Variable deletion |
+
+---
+
+## 8. Adding Characters to a String
+
+You **cannot directly add characters** to an existing string.
+
+❌ Not allowed:
+
+```python
+s[5] = 'x'
+```
+
+But you **can create a new string** using concatenation:
+
+```python
+s = s + "!"
+print(s)
+```
+
+This creates a **new string**, not an edit.
+
+---
+
+## 9. Deleting a String Variable
+
+You can delete the **entire string variable** using `del`.
+
+```python
+s = "hello"
+del s
+```
+
+After this:
+
+```python
+print(s)
+```
+
+### Output:
+
+```
+NameError: name 's' is not defined
+```
+
+The variable no longer exists.
+
+---
+
+## 10. Attempting Partial Deletion (Not Allowed)
+
+Let’s try deleting a single character:
+
+```python
+s = "hello"
+del s[0]
+```
+
+### Result:
+
+```
+TypeError: 'str' object does not support item deletion
+```
+
+Reason:
+
+* Deleting a character would change the string
+* That would cause mutation
+* Mutation is not allowed for strings
+
+---
+
+## 11. Why Partial Deletion Is Not Allowed
+
+Deleting part of a string:
+
+* Changes the original object
+* Violates immutability
+* Python blocks this operation
+
+---
+
+## 12. Summary of String Editing Rules
+
+### Strings in Python:
+
+* ❌ Cannot edit characters
+* ❌ Cannot add characters in-place
+* ❌ Cannot delete characters partially
+* ✅ Can reassign entire string
+* ✅ Can delete entire string variable
+
+---
+
+## 13. Key Takeaway
+
+> **Strings are immutable. Once created, they cannot be changed.**
+
+Any operation that looks like editing actually:
+
+* Creates a **new string**
+* Reassigns the variable
+
+---
+
+# String Operations 
+
+---
+
+## 1. Operators Applicable to Strings
+
+Not all operators in Python can be applied to strings.
+
+### Operators that **can** be used on strings:
+
+* Arithmetic operators (**limited**)
+* Relational (comparison) operators
+* Logical operators
+* Loop-based operations
+* Membership operators
+
+---
+
+## 2. Arithmetic Operators on Strings
+
+Although Python has many arithmetic operators, **only two** work with strings.
+
+### Supported Arithmetic Operators:
+
+* `+` (Concatenation)
+* `*` (Repetition)
+
+Other operators such as `-`, `/`, `//`, `%`, `**` **do not work** with strings.
+
+---
+
+### 2.1 String Concatenation (`+`)
+
+The `+` operator joins strings together.
+This operation is called **string concatenation**.
+
+#### Example:
+
+```python
+a = "Hello"
+b = "World"
+print(a + b)
+```
+
+#### Output:
+
+```
+HelloWorld
+```
+
+You can also add spaces or multiple strings:
+
+```python
+print(a + " " + b)
+```
+
+#### Output:
+
+```
+Hello World
+```
+
+You may concatenate **any number of strings** using `+`.
+
+---
+
+### 2.2 String Multiplication (`*`)
+
+The `*` operator repeats a string multiple times.
+
+#### Example:
+
+```python
+print("Hi" * 3)
+```
+
+#### Output:
+
+```
+HiHiHi
+```
+
+This is useful for:
+
+* Pattern generation
+* Formatting output
+* Repeated text
+
+No other arithmetic operator works on strings.
+
+---
+
+## 3. Relational (Comparison) Operators on Strings
+
+Relational operators compare strings and return `True` or `False`.
+
+### Common relational operators:
+
+* `==` (Equal)
+* `!=` (Not equal)
+* `<`, `>`, `<=`, `>=`
+
+---
+
+### 3.1 Equality and Inequality
+
+#### Example:
+
+```python
+"hello" == "hello"
+```
+
+Output:
+
+```
+True
+```
+
+```python
+"hello" != "world"
+```
+
+Output:
+
+```
+True
+```
+
+---
+
+### 3.2 Lexicographical Comparison
+
+When comparing strings using `<` or `>`, Python performs **lexicographical (dictionary-style) comparison**.
+
+#### Example:
+
+```python
+"mumbai" > "pune"
+```
+
+Output:
+
+```
+False
+```
+
+#### Why?
+
+* Comparison is **not based on string length**
+* It is based on **dictionary order**
+* Words that appear **earlier** in a dictionary are considered **smaller**
+
+---
+
+### Dictionary Rule:
+
+* Words appearing earlier → smaller
+* Words appearing later → larger
+
+Example:
+
+```python
+"goa" < "kolkata"
+```
+
+Output:
+
+```
+True
+```
+
+Because `"goa"` comes before `"kolkata"` alphabetically.
+
+---
+
+### 3.3 Capital vs Small Letters
+
+Capital letters come **before** small letters in dictionary order.
+
+```python
+"a" > "A"
+```
+
+Output:
+
+```
+True
+```
+
+Reason:
+
+* Capital letters are evaluated first
+* Lowercase letters are considered larger
+
+---
+
+## 4. Logical Operators on Strings
+
+Logical operators:
+
+* `and`
+* `or`
+* `not`
+
+Strings behave differently under logical operations.
+
+---
+
+### 4.1 Truth Value of Strings
+
+Python treats:
+
+* **Empty string (`""`) → False**
+* **Non-empty string → True**
+
+---
+
+### 4.2 Logical `and`
+
+```python
+"hello" and "world"
+```
+
+Output:
+
+```
+world
+```
+
+Explanation:
+
+* Both strings are `True`
+* `and` returns the **second operand**
+
+```python
+"" and "world"
+```
+
+Output:
+
+```
+""
+```
+
+Because `False and True` results in `False`.
+
+---
+
+### 4.3 Logical `or`
+
+```python
+"hello" or "world"
+```
+
+Output:
+
+```
+hello
+```
+
+Explanation:
+
+* `or` returns the **first True value**
+
+```python
+"" or "world"
+```
+
+Output:
+
+```
+world
+```
+
+---
+
+### 4.4 Logical `not`
+
+```python
+not "hello"
+```
+
+Output:
+
+```
+False
+```
+
+```python
+not ""
+```
+
+Output:
+
+```
+True
+```
+
+---
+
+### Key Rule:
+
+* Empty string → False
+* Non-empty string → True
+
+This rule explains all logical results.
+
+---
+
+## 5. Looping Over Strings
+
+Strings are **iterable**, meaning you can loop through them character by character.
+
+### Example:
+
+```python
+s = "hello"
+for ch in s:
+    print(ch)
+```
+
+#### Output:
+
+```
+h
+e
+l
+l
+o
+```
+
+Each iteration processes **one character**.
+
+---
+
+### Combining Loops with Slicing
+
+You can apply slicing inside loops to customize logic.
+
+Example:
+
+```python
+s = "hello world"
+for ch in s[0:5]:
+    print(ch)
+```
+
+Output:
+
+```
+h
+e
+l
+l
+o
+```
+
+---
+
+### Reverse Looping
+
+```python
+s = "hello"
+print(s[::-1])
+```
+
+Output:
+
+```
+olleh
+```
+
+---
+
+## 6. Membership Operators on Strings
+
+Membership operators:
+
+* `in`
+* `not in`
+
+Used to check whether a substring exists inside a string.
+
+---
+
+### Example:
+
+```python
+"a" in "apple"
+```
+
+Output:
+
+```
+True
+```
+
+```python
+"x" not in "apple"
+```
+
+Output:
+
+```
+True
+```
+
+Membership operators work **directly and efficiently** on strings.
+
+---
+
+## 7. Summary of String Operators
+
+| Category   | Operators                        |
+| ---------- | -------------------------------- |
+| Arithmetic | `+`, `*`                         |
+| Relational | `==`, `!=`, `<`, `>`, `<=`, `>=` |
+| Logical    | `and`, `or`, `not`               |
+| Looping    | `for`                            |
+| Membership | `in`, `not in`                   |
+
+---
+
+## 8. Key Takeaways
+
+* Only `+` and `*` work as arithmetic operators on strings
+* String comparison is **lexicographical**, not length-based
+* Empty strings are treated as `False`
+* Non-empty strings are treated as `True`
+* Strings can be iterated and sliced
+* Membership checks are directly supported
+
+---
+
 
 
 
